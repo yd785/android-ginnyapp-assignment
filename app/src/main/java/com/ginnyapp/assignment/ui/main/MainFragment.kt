@@ -36,13 +36,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ")
         setupRecyclerView()
         setupObservers()
     }
 
     private fun setupObservers() {
-        Log.d(TAG, "setupObservers: ")
         // show the spinner when [MainViewModel.spinner] is true
         viewModel.spinner.observe(viewLifecycleOwner) { value ->
             value.let { show ->
