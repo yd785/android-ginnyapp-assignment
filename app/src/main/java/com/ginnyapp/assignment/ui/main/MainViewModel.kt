@@ -26,8 +26,6 @@ class MainViewModel @ViewModelInject constructor(
                  DataTypeHolder(2, it.number.toString())
             else  DataTypeHolder(1, it.number.toString())
         }
-
-
     }
 
     private val _spinner = MutableLiveData<Boolean>(false)
@@ -50,12 +48,15 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun launchDataLoad(block: suspend () -> Resource<DataResponse>): Unit {
+    private fun launchDataLoad(block: suspend () -> Resource<DataResponse>) {
         viewModelScope.launch {
             _spinner.value = true
+
             val result = block()
 
             when (result.status) {
+                Resource.Status.LOADING ->  _spinner.value = true
+
                 Resource.Status.SUCCESS -> {
                     if (!result.data?.numbers.isNullOrEmpty()) {
                        _numbers.value = result.data?.numbers
