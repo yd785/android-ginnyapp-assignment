@@ -27,6 +27,7 @@ object AppModule {
     fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
+    @Singleton
     fun provideRemoteService(retrofit: Retrofit): RemoteServiceApi =
         retrofit.create(RemoteServiceApi::class.java)
 }
